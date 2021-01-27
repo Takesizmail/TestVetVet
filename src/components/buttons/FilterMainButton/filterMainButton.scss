@@ -1,0 +1,21 @@
+@import "src/style/index";
+
+.filter__button{
+  &-element{
+    width: 100px;
+    height: 42px;
+    border: 1px solid $border;
+    border-radius: 65px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+
+    &.active{
+      background-color: $blue-dark;
+      color: $white-primary;
+    }
+  }
+  &-container{
+  position: relative;
+  }
+}

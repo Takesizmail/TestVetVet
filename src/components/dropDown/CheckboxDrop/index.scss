@@ -1,0 +1,41 @@
+@import "src/style/index";
+
+.filter{
+  &__element{
+    &-container{
+      display: flex;
+    }
+    &-explanation{
+      margin-left: 14px;
+
+    }
+    &-title{
+      font-size: 14px;
+      font-weight: 400;
+    }
+    &-text{
+      font-size: 12px;
+      line-height: 138.3%;
+      margin-top: 10px;
+      color: $text-gray
+    }
+  }
+  &__with-title {
+    &_container{
+      border-bottom: 1px solid $border;
+      padding-bottom: 20px;
+      & h4 {
+        margin-top: 0;
+        font-size: 14px;
+        font-weight: bold;
+      }
+    }
+    &_elements{
+      margin-left: 20px;
+
+      & > div + div {
+        margin-top: 15px;
+      }
+    }
+  }
+}

@@ -1,0 +1,98 @@
+@import "src/style/index";
+.filter{
+  border-bottom: 1px solid #F2F2F2;
+
+  padding: 15px 25px 15px 40px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  //z-index: 1;
+  & > div + div {
+    margin-left: 10px;
+  }
+
+  &__sort-by{
+    position: relative;
+    &_wrapper{
+      margin-left: 20px ;
+      padding: 10px;
+      width: 65px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      color: $blue-dark;
+      cursor: pointer;
+    }
+  }
+}
+.sub-header{
+  padding: 20px 0 10px 25px;
+  border-bottom: 1px solid #F2F2F2;
+  &__counts{
+    font-size: 16px;
+    color: $blue-dark;
+    font-weight: bold;
+  }
+  &__place{
+    font-size: 14px;
+    color: $text-gray;
+
+  }
+}
+.vet{
+
+  &__list{
+    padding: 0 0 100px 25px ;
+  }
+
+  &__container{
+    padding: 10px 0 15px 0;
+     display: flex;
+
+  }
+  &__image img{
+    width:150px ;
+    height: 135px;
+    border-radius: 5px;
+  }
+  &__info{
+    margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 500px;
+    &-title{
+      margin: 5px 0 3px 0;
+      font-weight: bold;
+      font-size: 16px;
+      color: $blue-dark;
+    }
+    &-name{
+      color: $blue-dark;
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+    &-address{
+      font-size: 11px;
+      color: #000843;
+      margin-bottom: 3px;
+    }
+    &-tags{
+      font-size: 13px;
+      color: $text-gray;
+    }
+    &-details{
+      cursor: pointer;
+      margin-top: auto;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      color: $blue;
+       svg{
+        margin-right: 7px;
+      }
+    }
+  }
+}
+

@@ -1,0 +1,26 @@
+@import "src/style/index";
+
+.drop{
+  &__footer{
+    border-top: 1px solid $border;
+    padding: 8px 11px 8px 15px;
+    display: flex;
+    align-items: center;
+  }
+  &__apply{
+    font-size: 14px;
+    width: 96px;
+    height: 37px;
+    background-color: $blue-dark;
+    color: $white-primary;
+    margin-left: auto;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  &__clear{
+    color: #2D9CDB;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+  }
+}

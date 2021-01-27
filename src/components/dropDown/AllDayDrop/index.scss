@@ -1,0 +1,11 @@
+.filter__all-day{
+  &_container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+  }
+  &_text{
+    max-width: 240px;
+  }
+}
