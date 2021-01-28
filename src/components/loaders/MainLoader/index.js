@@ -3,7 +3,7 @@ import { ReactComponent as Loader } from '../../../assets/loaders/Double Ring-1.
 
 import './index.scss';
 
-const Index = () => {
+const MainLoader = () => {
   return (
     <div className="loader">
       <Loader />
@@ -11,4 +11,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default MainLoader;

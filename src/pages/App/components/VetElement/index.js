@@ -1,7 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { ReactComponent as DetailsImage } from '../../../../assets/icons/details.svg';
 
-const Index = ({ tags, name, address, images }) => {
+/**
+ *
+ * @param tags {Array}  - Detail information about Vets.
+ * @param name {title} - Detail information about Vets.
+ * @param address {string} - Detail information about Vets.
+ * @param images {File} - Detail information about Vets.
+ * @returns {*}
+ */
+const VetElement = ({ tags, name, address, images }) => {
   const getTags = () => {
     return tags.join(' | ');
   };
@@ -27,4 +36,11 @@ const Index = ({ tags, name, address, images }) => {
   );
 };
 
-export default Index;
+VetElement.propTypes = {
+  tags: PropTypes.arrayOf(PropTypes.string),
+  name: PropTypes.string,
+  address: PropTypes.string,
+  images: PropTypes.arrayOf(PropTypes.string)
+};
+
+export default VetElement;

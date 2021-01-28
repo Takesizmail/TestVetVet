@@ -1,8 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './index.scss';
 
-const Index = ({ title, onClearClick, onApplyClick }) => {
+/**
+ *
+ * @param title {string} -  Needs for show clear button in footers dropdown.
+ * @param onClearClick {function} - Function triggered by pressing a button 'Clear'. Clear filters in dropDown.
+ * @param onApplyClick {function} - Function triggered by pressing a button 'Apply'. Confirms filters in dropDown.
+ * @returns {*}
+ * @constructor
+ */
+const DropFooter = ({ title, onClearClick, onApplyClick }) => {
   const getIsClear = () => {
     if (title === 'All Services' || title === 'Affordability' || title === 'More filters') {
       return (
@@ -34,4 +43,10 @@ const Index = ({ title, onClearClick, onApplyClick }) => {
   );
 };
 
-export default Index;
+DropFooter.propTypes = {
+  title: PropTypes.string,
+  onClearClick: PropTypes.func,
+  onApplyClick: PropTypes.func
+};
+
+export default DropFooter;

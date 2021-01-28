@@ -6,7 +6,6 @@ const Index = () => {
   return (
     <div className="drop__distance-container">
       <h4>New York, NY, USA</h4>
-
     </div>
   );
 };

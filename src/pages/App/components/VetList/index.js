@@ -1,7 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import VetElement from '../VetElement';
 
-const Index = ({ vets }) => {
+/**
+ *  Created List of Vets.
+ *
+ * @param vets - List of Vets.
+ * @returns {*}
+
+ */
+const VetList = ({ vets }) => {
   const getList = () => {
     return vets.map(({ name, id, tags, address, images }) => {
       return <VetElement key={id} tags={tags} name={name} address={address} images={images} />;
@@ -11,4 +19,8 @@ const Index = ({ vets }) => {
   return <div className="vet__list">{getList()}</div>;
 };
 
-export default Index;
+VetList.propTypes = {
+  vets: PropTypes.arrayOf(PropTypes.object)
+};
+
+export default VetList;

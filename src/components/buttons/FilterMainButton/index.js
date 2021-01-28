@@ -1,92 +1,51 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import cn from 'classnames';
 import OutsideClickHandler from 'react-outside-click-handler';
-import BaseDrop from '../../dropDown/BaseDrop';
-import { getFilterCategory } from '../../halpers';
+import MainDropDown from '../../dropDown/MainDropDown';
 
 import './filterMainButton.scss';
-import CheckboxDrop from '../../dropDown/CheckboxDrop';
-import {
-  AffordabilityFilter,
-  allServicesFilter,
-  Languages,
-  moreFiltersFilter
-} from '../../../pages/App/constants';
-import DistanceDrop from '../../dropDown/DistanceDrop';
-import AllDayDrop from '../../dropDown/AllDayDrop';
 
-const getSelectFilter = (title, activeFilters) => {
-  const choseSelected = filters => {
-    return filters.map(element => {
-      if (activeFilters?.find(item => item.title === element.title)) {
-        return {
-          ...element,
-          isChecked: true
-        };
-      }
-      return element;
-    });
-  };
-
-  switch (title) {
-    case 'All Services':
-      return choseSelected(allServicesFilter);
-    case 'Affordability':
-      return choseSelected(AffordabilityFilter);
-    case 'More filters':
-      return choseSelected(moreFiltersFilter);
-    default:
-      return null;
-  }
-};
-
-const MainDropDown = ({
+/**
+ *  Filter Button in SubHeader. Has the logic of unconfirmed checkboxes.
+ *
+ * @param title {string} - Text in Filter button.
+ * @param activeFilters {Array} - Object with filters for this dropDown. Needs for checked confirmed checkbox
+ * @param applySubmit {function} - Function triggered by pressing a button 'Apply' in filters DropDown.
+ * @param tag {string} - Tag of filter in ActiveFilter. Needed for correct construction logic of Filters.
+ * @param tagTitle {string} - Tag of filter in ActiveFilter in filters dropDown with Title. Needed for correct construction logic of Filters.
+ * @param filterWithTitle {Object} - Object with title of section and checkbox elements.
+ * @returns {*}
+ */
+const FilterMainButton = ({
   title,
-  selectedFilters,
-  onApplyClick,
-  onClearClick,
-  onSelectedCheckbox
+  activeFilters,
+  applySubmit,
+  tag,
+  tagTitle,
+  filterWithTitle = null
 }) => {
-  const getFilterCategory = (title, onSelectedCheckbox) => {
-    switch (title) {
-      case 'All Services':
-        return <CheckboxDrop filters={selectedFilters} onSelectedCheckbox={onSelectedCheckbox} />;
-      case 'Affordability':
-        return <CheckboxDrop filters={selectedFilters} onSelectedCheckbox={onSelectedCheckbox} />;
-      case 'More filters':
-        return (
-          <CheckboxDrop
-            filters={moreFiltersFilter}
-            onSelectedCheckbox={onSelectedCheckbox}
-            filterWithTitle={Languages}
-          />
-        );
-      case 'Distance':
-        return <DistanceDrop />;
-      case '24 Hour Service':
-        return <AllDayDrop />;
-      default:
-        return null;
+  const [isActive, setIsActive] = useState(false);
+  const [selectedFilters, setSelectedFilters] = useState(activeFilters);
+  const [selectedWithTitle, setSelectedWithTitle] = useState(filterWithTitle);
+
+  const onApplyClick = () => {
+    setIsActive(false);
+
+    if (setSelectedFilters) {
+      applySubmit({
+        [`${tag}`]: selectedFilters,
+        [`${tagTitle}`]: selectedWithTitle
+      });
+    } else {
+      applySubmit({
+        [`${tag}`]: selectedFilters
+      });
     }
   };
 
-  return (
-    <BaseDrop title={title} onApplyClick={onApplyClick} onClearClick={onClearClick}>
-      {getFilterCategory(title, onSelectedCheckbox)}
-    </BaseDrop>
-  );
-};
-
-const Index = ({ title, activeFilters, applySubmit }) => {
-  const [isActive, setIsActive] = useState(false);
-  const [selectedFilters, setSelectedFilters] = useState(getSelectFilter(title, activeFilters));
-
-  const onApplyClick = () => {
-    applySubmit(selectedFilters);
-  };
-
-  const onSelectedCheckbox = (key, value) => {
-    const newSelectedFilters = selectedFilters.map(element => {
+  const onSelectedCheckbox = (key, value, withTitle = false) => {
+    const selectedFilter = element => {
       if (element.title === key) {
         return {
           ...element,
@@ -94,26 +53,42 @@ const Index = ({ title, activeFilters, applySubmit }) => {
         };
       }
       return element;
-    });
+    };
 
-    setSelectedFilters(newSelectedFilters);
+    if (withTitle) {
+      const newFiltersWithTitle = {
+        ...selectedWithTitle,
+        elements: selectedWithTitle.elements.map(element => selectedFilter(element))
+      };
+
+      setSelectedWithTitle(newFiltersWithTitle);
+    } else {
+      const newSelectedFilters = selectedFilters.map(element => selectedFilter(element));
+
+      setSelectedFilters(newSelectedFilters);
+    }
   };
 
+  // Makes checkboxes not checked in section.
   const onClearClick = () => {
-    applySubmit(
-      selectedFilters.map(element => {
+    applySubmit({
+      [`${tag}`]: selectedFilters.map(element => {
         return {
           ...element,
           isChecked: false
         };
       })
-    );
+    });
     setIsActive(false);
   };
 
   const outsideClick = () => {
     setIsActive(false);
-    setSelectedFilters(getSelectFilter(title, activeFilters));
+    setSelectedFilters(activeFilters);
+
+    if (selectedWithTitle) {
+      setSelectedWithTitle(filterWithTitle);
+    }
   };
 
   const getDropDown = () => {
@@ -125,6 +100,7 @@ const Index = ({ title, activeFilters, applySubmit }) => {
           selectedFilters={selectedFilters}
           onSelectedCheckbox={onSelectedCheckbox}
           onClearClick={onClearClick}
+          selectedWithTitle={selectedWithTitle}
         />
       );
     }
@@ -149,4 +125,13 @@ const Index = ({ title, activeFilters, applySubmit }) => {
   );
 };
 
-export default Index;
+FilterMainButton.propTypes = {
+  title: PropTypes.string,
+  activeFilters: PropTypes.arrayOf(PropTypes.any),
+  applySubmit: PropTypes.func,
+  tag: PropTypes.string,
+  tagTitle: PropTypes.string,
+  filterWithTitle: PropTypes.objectOf(PropTypes.any)
+};
+
+export default FilterMainButton;

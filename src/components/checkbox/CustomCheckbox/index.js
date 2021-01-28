@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const Index = ({ onChange, isChecked }) => {
+const CustomCheckbox = ({ onChange, isChecked }) => {
   return (
     <div>
       <input
@@ -12,4 +13,9 @@ const Index = ({ onChange, isChecked }) => {
   );
 };
 
-export default Index;
+CustomCheckbox.propTypes = {
+  onChange: PropTypes.func,
+  isChecked: PropTypes.bool
+};
+
+export default CustomCheckbox;

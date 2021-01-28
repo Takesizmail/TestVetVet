@@ -29,6 +29,8 @@
 .sub-header{
   padding: 20px 0 10px 25px;
   border-bottom: 1px solid #F2F2F2;
+  position: relative;
+  z-index: 0;
   &__counts{
     font-size: 16px;
     color: $blue-dark;
@@ -37,6 +39,10 @@
   &__place{
     font-size: 14px;
     color: $text-gray;
+  }
+  &__tag{
+    position: absolute;
+    right: 0;
 
   }
 }
@@ -52,6 +58,8 @@
 
   }
   &__image img{
+    object-fit: cover;
+    object-position: center center;
     width:150px ;
     height: 135px;
     border-radius: 5px;
