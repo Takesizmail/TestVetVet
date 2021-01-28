@@ -25,10 +25,7 @@ export const getFilterWithTitle = (title, activeFilters) => {
 };
 
 export const contains = (where, what) => {
-  for (let i = 0; i < what.length; i++) {
-    if (where.indexOf(what[i]) === -1) return false;
-  }
-  return true;
+  return what.every(item => where.includes(item));
 };
 
 export const getFilterTags = filters => {
